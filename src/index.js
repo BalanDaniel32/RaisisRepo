@@ -2,16 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { render } from "react-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+import NewMeetupPage from './pages/NewMeetups';
+import FavoritesPage from './pages/Favorites';
+import AllMeetupsPage from './pages/AllMeetups';
+import Layout from './components/layout/Layout/Layout.js';
+import { FavoritesContextProvider } from './store/favorite-context';
+const rootElement = document.getElementById("root");
+render(
+  <FavoritesContextProvider>
+  <BrowserRouter>
+  <Layout>
+    <Routes>
+    <Route path="/" element={<AllMeetupsPage />} />
+      <Route path="/favorites" element={<FavoritesPage />} />
+      <Route path="/new" element={<NewMeetupPage />} />
+    </Routes>
+    </Layout>
+  </BrowserRouter>
+  </FavoritesContextProvider>
+
+
+
+
+  ,
+  rootElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
